@@ -9,9 +9,10 @@
 *.njsproj
 *.sln
 *.sw?
+*.log
 
 
-/mxshop_srvs/logs/*
-/mxshop_srvs/.idea
+mxshop_srvs/logs/*
+mxshop_srvs/.idea
 
-
+mxshop_srvs/user_srv/logs/*
