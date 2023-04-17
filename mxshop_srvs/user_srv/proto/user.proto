@@ -11,6 +11,13 @@ service User{
   rpc UpdateUser(UpdateUserInfo) returns (google.protobuf.Empty); //更新用户
 }
 
+message PageInfo{
+  uint32 Page = 1;
+  uint32 PageSize = 2;
+}
+message MobileRequest{
+  string Mobile = 1;
+}
 message CreateUserInfo{
   string NickName = 1;
   string Password = 2;
@@ -23,17 +30,12 @@ message UpdateUserInfo{
   uint64 BirthDay = 4;
 }
 
-message PageInfo{
-  uint32 Page = 1;
-  uint32 PageSize = 2;
-}
+
 message UserListResponse{
   int32 Total = 1;
-  repeated UserInfoResponse date = 2;
+  repeated UserInfoResponse Data = 2;
 }
-message MobileRequest{
-  string Mobile = 1;
-}
+
 message IdRequest{
   int32 Id = 1;
 }
@@ -42,6 +44,7 @@ message UserInfoResponse{
   string Password = 2;
   string Mobile = 3;
   string NickName = 4;
-  string Gender = 5;
-  int32 Role = 6;
+  uint64 BirthDay = 5;
+  string Gender = 6;
+  int32 Role = 7;
 }
