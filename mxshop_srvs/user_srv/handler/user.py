@@ -37,5 +37,5 @@ class UserServicer(user_pb2_grpc.UserServicer):
             if user.birthday:
                 user_info.BirthDay = int(time.mktime(user.birthday.timetuple()))
 
-            rsp.data.append(user_info)
+            rsp.Data.append(user_info)
         return rsp

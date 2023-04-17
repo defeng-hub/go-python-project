@@ -5,7 +5,7 @@ from user_srv.proto import user_pb2_grpc, user_pb2
 class UserTest:
     def __init__(self):
         # 连接rpc grpc服务器
-        channel = grpc.insecure_channel("127.0.0.1:50051")
+        channel = grpc.insecure_channel("127.0.0.1:50052")
         self.stub = user_pb2_grpc.UserStub(channel=channel)
 
     def user_list(self):

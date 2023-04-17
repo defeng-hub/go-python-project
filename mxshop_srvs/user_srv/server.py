@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 from concurrent import futures
@@ -15,24 +16,22 @@ from user_srv.proto import user_pb2, user_pb2_grpc
 from user_srv.handler.user import UserServicer
 
 
-def init_path():
-    BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-    sys.path.insert(0, BASE_DIR)
-
-    print(BASE_DIR)
-
-
 def on_exit(signo, frame):
     logger.warning("终端终止")
     sys.exit(0)
 
 
 def serve():
+    # 1. 获取args
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ip', nargs="?", type=str, default="127.0.0.1", help="绑定ip")
+    parser.add_argument('--port', nargs="?", type=int, default=50051, help="端口")
+    args = parser.parse_args()
     # 初始化logger
     logger.add("logs/user_srv_{time}.log", rotation="125 MB")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     user_pb2_grpc.add_UserServicer_to_server(UserServicer(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port(f"{args.ip}:{args.port}")
 
     """
         windows 下支持的信号有限
@@ -43,7 +42,7 @@ def serve():
     signal.signal(signal.SIGTERM, on_exit)
 
     server.start()
-    logger.debug("启动服务0:50051")
+    logger.debug("服务启动: "+f"{args.ip}:{args.port}")
     server.wait_for_termination()
 
 
