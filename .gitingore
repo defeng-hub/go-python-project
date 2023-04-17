@@ -1,0 +1,17 @@
+.idea/
+.DS_Store
+
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+/mxshop_srvs/logs/*
+/mxshop_srvs/.idea
+
+
