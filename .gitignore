@@ -4,12 +4,8 @@
 
 .idea
 .vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 *.log
+*.exe
 
 
 mxshop_srvs/logs/*
