@@ -9,8 +9,9 @@ import (
 func main() {
 	initialize.InitZapLogger()
 	initialize.Viper("./config/dev.yaml")
-
 	Router := initialize.InitRouter()
+	//4. 初始化翻译
+	initialize.InitTrans("zh")
 
 	if err := Router.Run(fmt.Sprintf("%s:%d",
 		global.CONFIG.Service.IP, global.CONFIG.Service.Port)); err != nil {
