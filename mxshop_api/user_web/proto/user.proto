@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+service User{
+  rpc GetUserList(PageInfo) returns (UserListResponse);
+  rpc GetUserByMobile(MobileRequest) returns (UserInfoResponse);
+  rpc GetUserByID(IdRequest) returns (UserInfoResponse);
+  rpc CreateUser(CreateUserInfo) returns (UserInfoResponse);
+  rpc UpdateUser(UpdateUserInfo) returns (Empty); //更新用户
+}
+message Empty {}
+message PageInfo{
+  uint32 Page = 1;
+  uint32 PageSize = 2;
+}
+message MobileRequest{
+  string Mobile = 1;
+}
+message CreateUserInfo{
+  string NickName = 1;
+  string Password = 2;
+  string Mobile = 3;
+}
+message UpdateUserInfo{
+  int32 Id = 1;
+  string NickName = 2;
+  string Gender = 3;
+  uint64 BirthDay = 4;
+}
+
+
+message UserListResponse{
+  int32 Total = 1;
+  repeated UserInfoResponse Data = 2;
+}
+
+message IdRequest{
+  int32 Id = 1;
+}
+message UserInfoResponse{
+  int32 Id=1;
+  string Password = 2;
+  string Mobile = 3;
+  string NickName = 4;
+  uint64 BirthDay = 5;
+  string Gender = 6;
+  int32 Role = 7;
+}
