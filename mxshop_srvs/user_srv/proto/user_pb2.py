@@ -11,7 +11,6 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,11 +19,35 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\007.;proto',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nuser.proto\x1a\x1bgoogle/protobuf/empty.proto\"*\n\x08PageInfo\x12\x0c\n\x04Page\x18\x01 \x01(\r\x12\x10\n\x08PageSize\x18\x02 \x01(\r\"\x1f\n\rMobileRequest\x12\x0e\n\x06Mobile\x18\x01 \x01(\t\"D\n\x0e\x43reateUserInfo\x12\x10\n\x08NickName\x18\x01 \x01(\t\x12\x10\n\x08Password\x18\x02 \x01(\t\x12\x0e\n\x06Mobile\x18\x03 \x01(\t\"P\n\x0eUpdateUserInfo\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x10\n\x08NickName\x18\x02 \x01(\t\x12\x0e\n\x06Gender\x18\x03 \x01(\t\x12\x10\n\x08\x42irthDay\x18\x04 \x01(\x04\"B\n\x10UserListResponse\x12\r\n\x05Total\x18\x01 \x01(\x05\x12\x1f\n\x04\x44\x61ta\x18\x02 \x03(\x0b\x32\x11.UserInfoResponse\"\x17\n\tIdRequest\x12\n\n\x02Id\x18\x01 \x01(\x05\"\x82\x01\n\x10UserInfoResponse\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x10\n\x08Password\x18\x02 \x01(\t\x12\x0e\n\x06Mobile\x18\x03 \x01(\t\x12\x10\n\x08NickName\x18\x04 \x01(\t\x12\x10\n\x08\x42irthDay\x18\x05 \x01(\x04\x12\x0e\n\x06Gender\x18\x06 \x01(\t\x12\x0c\n\x04Role\x18\x07 \x01(\x05\x32\x80\x02\n\x04User\x12+\n\x0bGetUserList\x12\t.PageInfo\x1a\x11.UserListResponse\x12\x34\n\x0fGetUserByMobile\x12\x0e.MobileRequest\x1a\x11.UserInfoResponse\x12,\n\x0bGetUserByID\x12\n.IdRequest\x1a\x11.UserInfoResponse\x12\x30\n\nCreateUser\x12\x0f.CreateUserInfo\x1a\x11.UserInfoResponse\x12\x35\n\nUpdateUser\x12\x0f.UpdateUserInfo\x1a\x16.google.protobuf.EmptyB\tZ\x07.;protob\x06proto3'
-  ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
+  serialized_pb=b'\n\nuser.proto\"\x07\n\x05\x45mpty\"*\n\x08PageInfo\x12\x0c\n\x04Page\x18\x01 \x01(\r\x12\x10\n\x08PageSize\x18\x02 \x01(\r\"\x1f\n\rMobileRequest\x12\x0e\n\x06Mobile\x18\x01 \x01(\t\"D\n\x0e\x43reateUserInfo\x12\x10\n\x08NickName\x18\x01 \x01(\t\x12\x10\n\x08Password\x18\x02 \x01(\t\x12\x0e\n\x06Mobile\x18\x03 \x01(\t\"P\n\x0eUpdateUserInfo\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x10\n\x08NickName\x18\x02 \x01(\t\x12\x0e\n\x06Gender\x18\x03 \x01(\t\x12\x10\n\x08\x42irthDay\x18\x04 \x01(\x04\"B\n\x10UserListResponse\x12\r\n\x05Total\x18\x01 \x01(\x05\x12\x1f\n\x04\x44\x61ta\x18\x02 \x03(\x0b\x32\x11.UserInfoResponse\"\x17\n\tIdRequest\x12\n\n\x02Id\x18\x01 \x01(\x05\"\x82\x01\n\x10UserInfoResponse\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x10\n\x08Password\x18\x02 \x01(\t\x12\x0e\n\x06Mobile\x18\x03 \x01(\t\x12\x10\n\x08NickName\x18\x04 \x01(\t\x12\x10\n\x08\x42irthDay\x18\x05 \x01(\x04\x12\x0e\n\x06Gender\x18\x06 \x01(\t\x12\x0c\n\x04Role\x18\x07 \x01(\x05\x32\xf0\x01\n\x04User\x12+\n\x0bGetUserList\x12\t.PageInfo\x1a\x11.UserListResponse\x12\x34\n\x0fGetUserByMobile\x12\x0e.MobileRequest\x1a\x11.UserInfoResponse\x12,\n\x0bGetUserByID\x12\n.IdRequest\x1a\x11.UserInfoResponse\x12\x30\n\nCreateUser\x12\x0f.CreateUserInfo\x1a\x11.UserInfoResponse\x12%\n\nUpdateUser\x12\x0f.UpdateUserInfo\x1a\x06.EmptyB\tZ\x07.;protob\x06proto3'
+)
 
 
+
+
+_EMPTY = _descriptor.Descriptor(
+  name='Empty',
+  full_name='Empty',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=14,
+  serialized_end=21,
+)
 
 
 _PAGEINFO = _descriptor.Descriptor(
@@ -61,8 +84,8 @@ _PAGEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=43,
-  serialized_end=85,
+  serialized_start=23,
+  serialized_end=65,
 )
 
 
@@ -93,8 +116,8 @@ _MOBILEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=118,
+  serialized_start=67,
+  serialized_end=98,
 )
 
 
@@ -139,8 +162,8 @@ _CREATEUSERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=120,
-  serialized_end=188,
+  serialized_start=100,
+  serialized_end=168,
 )
 
 
@@ -192,8 +215,8 @@ _UPDATEUSERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=190,
-  serialized_end=270,
+  serialized_start=170,
+  serialized_end=250,
 )
 
 
@@ -231,8 +254,8 @@ _USERLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=272,
-  serialized_end=338,
+  serialized_start=252,
+  serialized_end=318,
 )
 
 
@@ -263,8 +286,8 @@ _IDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=340,
-  serialized_end=363,
+  serialized_start=320,
+  serialized_end=343,
 )
 
 
@@ -337,11 +360,12 @@ _USERINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=366,
-  serialized_end=496,
+  serialized_start=346,
+  serialized_end=476,
 )
 
 _USERLISTRESPONSE.fields_by_name['Data'].message_type = _USERINFORESPONSE
+DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 DESCRIPTOR.message_types_by_name['PageInfo'] = _PAGEINFO
 DESCRIPTOR.message_types_by_name['MobileRequest'] = _MOBILEREQUEST
 DESCRIPTOR.message_types_by_name['CreateUserInfo'] = _CREATEUSERINFO
@@ -350,6 +374,13 @@ DESCRIPTOR.message_types_by_name['UserListResponse'] = _USERLISTRESPONSE
 DESCRIPTOR.message_types_by_name['IdRequest'] = _IDREQUEST
 DESCRIPTOR.message_types_by_name['UserInfoResponse'] = _USERINFORESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
+  'DESCRIPTOR' : _EMPTY,
+  '__module__' : 'user_pb2'
+  # @@protoc_insertion_point(class_scope:Empty)
+  })
+_sym_db.RegisterMessage(Empty)
 
 PageInfo = _reflection.GeneratedProtocolMessageType('PageInfo', (_message.Message,), {
   'DESCRIPTOR' : _PAGEINFO,
@@ -410,8 +441,8 @@ _USER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=499,
-  serialized_end=755,
+  serialized_start=479,
+  serialized_end=719,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetUserList',
@@ -459,7 +490,7 @@ _USER = _descriptor.ServiceDescriptor(
     index=4,
     containing_service=None,
     input_type=_UPDATEUSERINFO,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    output_type=_EMPTY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

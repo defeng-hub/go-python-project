@@ -1,8 +1,11 @@
 import time
+from datetime import date
 
 import grpc
 from loguru import logger
+from passlib.handlers.pbkdf2 import pbkdf2_sha256
 
+from google.protobuf import empty_pb2
 from user_srv.proto import user_pb2, user_pb2_grpc
 from user_srv.model.models import User
 from peewee import DoesNotExist
@@ -64,3 +67,40 @@ class UserServicer(user_pb2_grpc.UserServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("用户不存在")
             return user_pb2.UserInfoResponse()
+
+    @logger.catch
+    def CreateUser(self, request: user_pb2.CreateUserInfo, context):  # 新建用户
+        try:
+            User.get(User.mobile == request.Mobile)
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("用户已经存在")
+            return user_pb2.UserInfoResponse()
+        except DoesNotExist as e:
+            user = User()
+            #   string NickName = 1;
+            #   string Password = 2;
+            #   string Mobile = 3;
+            user.nick_name = request.NickName
+            user.mobile = request.Mobile
+            user.password = pbkdf2_sha256.hash(request.Password)
+            user.save()
+            return self.UserModelToUserInfoRsp(user)
+
+    @logger.catch
+    def UpdateUser(self, request: user_pb2.UpdateUserInfo, context):
+        try:
+            user = User.get(User.id == request.Id)
+            #   int32 Id = 1;
+            #   string NickName = 2;
+            #   string Gender = 3;
+            #   uint64 BirthDay = 4;
+            user.nick_name = request.NickName
+            user.gender = request.Gender
+            user.birthday = date.fromtimestamp(request.BirthDay)
+            user.save()
+            return user_pb2.Empty()
+        except DoesNotExist as e:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("用户不存在")
+            return user_pb2.UserInfoResponse()
+

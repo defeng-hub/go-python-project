@@ -2,7 +2,6 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from . import user_pb2 as user__pb2
 
 
@@ -38,7 +37,7 @@ class UserStub(object):
         self.UpdateUser = channel.unary_unary(
                 '/User/UpdateUser',
                 request_serializer=user__pb2.UpdateUserInfo.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                response_deserializer=user__pb2.Empty.FromString,
                 )
 
 
@@ -102,7 +101,7 @@ def add_UserServicer_to_server(servicer, server):
             'UpdateUser': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateUser,
                     request_deserializer=user__pb2.UpdateUserInfo.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    response_serializer=user__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -195,6 +194,6 @@ class User(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/User/UpdateUser',
             user__pb2.UpdateUserInfo.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            user__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-import  "google/protobuf/empty.proto";
 option go_package = ".;proto";
 
 service User{
@@ -8,9 +7,9 @@ service User{
   rpc GetUserByMobile(MobileRequest) returns (UserInfoResponse);
   rpc GetUserByID(IdRequest) returns (UserInfoResponse);
   rpc CreateUser(CreateUserInfo) returns (UserInfoResponse);
-  rpc UpdateUser(UpdateUserInfo) returns (google.protobuf.Empty); //更新用户
+  rpc UpdateUser(UpdateUserInfo) returns (Empty); //更新用户
 }
-
+message Empty {}
 message PageInfo{
   uint32 Page = 1;
   uint32 PageSize = 2;
