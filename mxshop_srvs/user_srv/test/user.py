@@ -5,7 +5,7 @@ from user_srv.proto import user_pb2_grpc, user_pb2
 class UserTest:
     def __init__(self):
         # 连接rpc grpc服务器
-        channel = grpc.insecure_channel("127.0.0.1:50052")
+        channel = grpc.insecure_channel("127.0.0.1:50051")
         self.stub = user_pb2_grpc.UserStub(channel=channel)
 
     def user_list(self):
@@ -15,7 +15,17 @@ class UserTest:
         for user in rsp.Data:
             print(user.Mobile, user.BirthDay)
 
+    def get_user_by_id(self, id):
+        rsp: user_pb2.UserInfoResponse = self.stub.GetUserByID(user_pb2.IdRequest(Id=id))
+        print(rsp.Mobile)
+        return rsp
+
+    def get_user_by_mobile(self, mobile):
+        rsp: user_pb2.UserInfoResponse = self.stub.GetUserByMobile(user_pb2.MobileRequest(Mobile=mobile))
+        print(rsp.Mobile)
+        return rsp
 
 if __name__ == '__main__':
     user = UserTest()
     user.user_list()
+
