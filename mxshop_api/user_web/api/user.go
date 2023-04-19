@@ -3,9 +3,13 @@ package api
 import (
 	"context"
 	"fmt"
+	"github.com/golang-jwt/jwt/v5"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
+	"user_web/global/model"
+	"user_web/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -83,12 +87,11 @@ func GetUserList(ctx *gin.Context) {
 		HandleGrpcErrorToHttp(err, ctx)
 		return
 	}
+	//生成grpc client
+	userSrvClient := proto.NewUserClient(dial)
 
 	tmp1, _ := strconv.Atoi(ctx.DefaultQuery("page", "0"))
 	tmp2, _ := strconv.Atoi(ctx.DefaultQuery("pageSize", "5"))
-
-	//生成grpc client
-	userSrvClient := proto.NewUserClient(dial)
 
 	rsp, err := userSrvClient.GetUserList(context.Background(), &proto.PageInfo{
 		Page:     uint32(tmp1),
@@ -123,5 +126,72 @@ func PasswordLogin(ctx *gin.Context) {
 	if err := ctx.ShouldBind(&form); err != nil {
 		HandleValidatorError(ctx, err)
 		return
+	}
+
+	// 连接grpc
+	ip := "127.0.0.1"
+	port := 50051
+	dial, err := grpc.Dial(fmt.Sprintf("%s:%d", ip, port),
+		grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		HandleGrpcErrorToHttp(err, ctx)
+		return
+	}
+	//生成grpc client
+	userSrvClient := proto.NewUserClient(dial)
+
+	if rsp, err := userSrvClient.GetUserByMobile(context.Background(),
+		&proto.MobileRequest{Mobile: form.Mobile}); err != nil {
+		if e, ok := status.FromError(err); ok {
+			switch e.Code() {
+			case codes.NotFound:
+				ctx.JSON(http.StatusBadRequest, map[string]string{"mobile": "手机号不存在"})
+			default:
+				ctx.JSON(http.StatusInternalServerError, map[string]string{"mobile": "登录失败"})
+			}
+			return
+		}
+	} else {
+		//	已经查到了用户,还没校验密码
+		passRsp, passErr := userSrvClient.CheckPassword(context.Background(), &proto.PasswordCheckInfo{
+			Password:          form.Password,
+			EncryptedPassword: rsp.Password,
+		})
+		if passErr != nil {
+			ctx.JSON(http.StatusInternalServerError, map[string]string{
+				"password": "登录失败",
+			})
+			return
+		}
+		if passRsp.Success {
+			j := utils.NewJWT()
+			clamis := model.CustomClaims{
+				ID:          uint(rsp.Id),
+				NickName:    rsp.NickName,
+				AuthorityId: uint(rsp.Role),
+				RegisteredClaims: jwt.RegisteredClaims{
+					Issuer:    "defeng",
+					ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 10)), // 10小时过期
+					NotBefore: jwt.NewNumericDate(time.Now()),                     //生效时间
+				},
+			}
+			token, err := j.CreateToken(clamis)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, map[string]string{
+					"password": "登录失败:" + err.Error(),
+				})
+				return
+			}
+
+			ctx.JSON(http.StatusOK, map[string]string{
+				"password": "密码冲冲冲",
+				"token":    token,
+			})
+		} else {
+			ctx.JSON(http.StatusBadRequest, map[string]string{
+				"password": "密码错误",
+			})
+			return
+		}
 	}
 }

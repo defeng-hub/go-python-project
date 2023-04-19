@@ -1,4 +1,6 @@
 Service:
   ServiceName: 'user-web'
-  IP: 127.0.0.1
+  IP: '127.0.0.1'
   Port: 8021
+JWT:
+  SigningKey: '8nP6s3*=BhIFuZYpC0^&Aep$X?DQmr&1'

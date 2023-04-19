@@ -8,8 +8,17 @@ service User{
   rpc GetUserByID(IdRequest) returns (UserInfoResponse);
   rpc CreateUser(CreateUserInfo) returns (UserInfoResponse);
   rpc UpdateUser(UpdateUserInfo) returns (Empty); //更新用户
+  rpc CheckPassword(PasswordCheckInfo) returns (BoolResponse);
 }
 message Empty {}
+message PasswordCheckInfo{
+  string Password = 1;
+  string EncryptedPassword = 2;
+}
+message BoolResponse{
+  bool Success = 1;
+}
+
 message PageInfo{
   uint32 Page = 1;
   uint32 PageSize = 2;
