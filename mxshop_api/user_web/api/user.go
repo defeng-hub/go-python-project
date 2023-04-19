@@ -124,5 +124,4 @@ func PasswordLogin(ctx *gin.Context) {
 		HandleValidatorError(ctx, err)
 		return
 	}
-
 }
